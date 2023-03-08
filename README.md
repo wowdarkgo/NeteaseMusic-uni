@@ -11,4 +11,5 @@
 
 ### 截图展示
 <image src="https://github.com/wowdarkgo/NeteaseMusic-uni/blob/master/screenshot/list.png"\>
-<image src="https://github.com/wowdarkgo/NeteaseMusic-uni/blob/master/screenshot/play(no%20lyric).png"\>
+<image src="https://github.com/wowdarkgo/NeteaseMusic-uni/blob/master/screenshot/play(no%20lyric).png"\>\
+  <image width="340" src="[https://github.com/sqaiyan/NeteaseMusicWxMiniApp/raw/master/screenshot/IMG_4271.PNG](https://github.com/wowdarkgo/NeteaseMusic-uni/blob/master/screenshot/list.png)"/>

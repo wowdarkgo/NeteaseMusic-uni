@@ -10,6 +10,7 @@
 3. 播放页【仍未完善】（对应的歌曲播放功能）
 
 ### 截图展示
-<image src="https://github.com/wowdarkgo/NeteaseMusic-uni/blob/master/screenshot/list.png"\>
-<image src="https://github.com/wowdarkgo/NeteaseMusic-uni/blob/master/screenshot/play(no%20lyric).png"\>\
-<image width="340" src="https://github.com/wowdarkgo/NeteaseMusic-uni/blob/master/screenshot/play(no%20lyric).png"/>
+* 播放页
+<image width="400" src="https://github.com/wowdarkgo/NeteaseMusic-uni/blob/master/screenshot/play(no%20lyric).png"/>
+* 列表页
+<image width="400" src="https://github.com/wowdarkgo/NeteaseMusic-uni/blob/master/screenshot/list.png"/>

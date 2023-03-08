@@ -1,0 +1,56 @@
+
+.content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.logo {
+	height: 200rpx;
+	width: 200rpx;
+	margin-top: 200rpx;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 50rpx;
+}
+.text-area {
+	display: flex;
+	justify-content: center;
+}
+.title {
+	font-size: 36px;
+}
+.songImg {
+	float: left;
+	border-radius: 10px;
+	margin-left: 30px;
+	margin-top: 30px;
+	width: 100px;
+	height: 100px;
+}
+.songList {
+	float: left;
+	margin-top: 55px;
+	font-size: 10px;
+	text-align: 16px;
+	margin-left: 20px;
+	list-style-type: none;
+	color: #666666;
+	flex-direction: row;
+}
+.songList ._li {
+	margin-bottom: 5px;
+	text-overflow: ellipsis;
+	overflow: hidden !important;
+	width: 400rpx;
+	white-space: nowrap;
+}
+.Tabbar {
+	position: absolute;
+	right: 0;
+	/* bottom:0; */
+	left: 0;
+	height: 20px;
+	margin-top: 80rpx;
+}
+

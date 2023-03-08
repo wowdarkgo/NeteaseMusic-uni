@@ -1,0 +1,82 @@
+
+.Tabbar {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+/* 	.bgImage {
+	width: 100%;
+	height: 20vh;
+	left: 0;
+	top: 80px;
+	background-image: url('../../static/testbg.jpg');
+	background-size: cover;
+	background-position: center 0;
+	filter: blur(8rpx) brightness(90%); //模糊半径和变暗
+	transform: scale(1.15); //控制边缘是否模糊，小于1的话边缘会模糊
+
+} */
+.listContainer {
+	font-size: 10px;
+	margin-top: 30px;
+	color: #666666;
+	text-overflow: ellipsis;
+	overflow: hidden !important;
+	width: 800rpx;
+	white-space: nowrap;
+}
+.coverImg {
+	width: 120px;
+	height: 120px;
+	border-radius: 10px;
+	margin-left: 30px;
+	margin-right: 20px;
+	float: left;
+}
+.listName {
+	font-size: 18px;
+	color: black;
+}
+.authorImg {
+	width: 20px;
+	height: 20px;
+	border-radius: 3px;
+	margin-right: .5em;
+	vertical-align: bottom;
+}
+.listText ._p {
+	padding-bottom: 10px;
+}
+.List {
+	margin-top: 30px;
+	/* margin-left: 15px; */
+	margin-bottom: 30px;
+	background-color: white;
+}
+.listHead {
+	margin-left: 30px;
+	margin-bottom: 10px;
+}
+.musicList {
+	font-size: 14px;
+	color: #666666;
+	padding-top: 1em;
+	margin-left: 30px;
+	box-shadow: 0 7px 5px -5px rgba(240, 240, 240, .7);
+}
+.songIndex {
+	font-size: 18px;
+	float: left;
+	margin-right: 20px;
+	text-align: center;
+}
+.Logo {
+	width: 20px;
+	padding-left: 5px;
+}
+.author {
+	font-size: 12px;
+}
+

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "uni-app",
+  "usingComponents": {
+    "common-title": "/components/commonTitle/commonTitle",
+    "common-tabbar": "/components/commonTabbar/commonTabbar"
+  }
+}

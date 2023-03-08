@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "common-title": "/components/commonTitle/commonTitle",
+    "common-tabbar": "/components/commonTabbar/commonTabbar"
+  }
+}

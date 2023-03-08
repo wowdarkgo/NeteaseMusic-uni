@@ -1,0 +1,7 @@
+
+.title{
+	position: relative;
+	top: 2.2em;
+left: 50%;
+}
+

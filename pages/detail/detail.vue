@@ -42,6 +42,30 @@
 						</view>
 					</div>
 				</view>
+				<view class="comment">
+					<view class="comment-head">
+						<text>热门评论</text>
+					</view>
+					<div v-for="item in hotcomment" :key="item.id" class="comment-item" style="border-bottom: #a5a5ab .5px solid;">
+						<view class="comment-user">
+							<view>
+								<img :src="item.user.avatarUrl" alt=""
+									style="width: 50px;border-radius: 50%;float:left;margin-right: 10px;">
+								<view class="user-content">
+									{{item.user.nickname}}
+									<van-icon name="like-o" style="font-size: 15px;position:absolute;right: 10px;" />
+									<text
+										style="position: absolute;right:30px;font-size: 10px;">{{item.likedCount}}</text>
+									<text class="comment-time">{{item.timeStr}}</text>
+								</view>
+							</view>
+							</view>
+						<view class="comment-content">
+							{{ item.content }}
+						</view>
+
+					</div>
+				</view>
 			</scroll-view>
 		</view>
 
@@ -54,6 +78,8 @@
 		getSongUrl,
 		getSongData,
 		getSimiSong,
+		getHotComment,
+		timestampToTime
 	} from '../../common/api.js';
 	export default {
 		data() {
@@ -62,7 +88,8 @@
 				songname: '',
 				songurl: '',
 				coverurl: '',
-				simisong: []
+				simisong: [],
+				hotcomment: [],
 			}
 		},
 		methods: {
@@ -85,6 +112,8 @@
 					).then(getSimiSong(e.currentTarget.id).then((res) => {
 						this.simisong = [...res.data.songs].slice(0, 5)
 						// console.log(this.simisong)
+					})).then(getHotComment(e.currentTarget.id).then((res) => {
+						this.hotcomment = [...res.data.hotComments].slice(0, 10)
 					}))
 
 					.catch((err) => {
@@ -115,6 +144,8 @@
 				).then(getSimiSong(this.songid).then((res) => {
 					this.simisong = [...res.data.songs].slice(0, 5)
 					// console.log(this.simisong)
+				})).then(getHotComment(this.songid).then((res) => {
+					this.hotcomment = [...res.data.hotComments].slice(0, 10)
 				}))
 
 				.catch((err) => {
@@ -156,7 +187,7 @@
 		-moz-filter: blur(15px);
 		-o-filter: blur(15px);
 		-ms-filter: blur(15px);
-		filter: blur(15px) brightness(80%);
+		filter: blur(15px) brightness(70%);
 	}
 
 	.container {
@@ -226,32 +257,61 @@
 		color: #ffffff;
 	}
 
-	.recommend {
+	.recommend,
+	.comment {
 		margin-left: 10px;
 		margin-top: 10px;
 	}
 
-	.recommend-item {
+	.recommend-item,
+	.comment-item {
 		display: flex;
 		padding-bottom: 20px;
 	}
 
-	.recommend-head {
+	.recommend-head,
+	.comment-head {
 		font-size: 20px;
 		color: #ffffff;
 		margin-bottom: 15px;
 	}
 
-	.item-content {
+	.item-content,
+	.comment-content {
 		font-size: 15px;
 		color: #ffffff;
 		float: left;
 		margin-left: 10px;
 	}
 
-	.item-author {
-		font-size: 12px;
-		color: #919294;
+	.comment-time {
+		display: flex;
+		font-size: 10px;
+		color: #dcdddf;
+	}
+
+	.user-content {
+		width: 65px;
+		/* text-align: center; */
+	}
+
+	.comment-like {
+		position: absolute;
+		right: 10px;
+		/* text-align: center; */
+		/* vertical-align: bottom; */
+		text-align: 10px
+	}
+
+	.item-author,
+	.comment-user {
+		font-size: 13px;
+		color: #dcdddf;
+		margin-top: 10px;
+	}
+	
+	.comment-content{
+		width: 70%;
 		margin-top: 10px;
 	}
 </style>

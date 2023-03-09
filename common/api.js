@@ -80,3 +80,16 @@ export function getSimiSong(songid){
 		})
 	})
 }
+
+export function getHotComment(songid){
+	return new Promise(function(resolve,reject){
+		uni.request({
+			url:`${baseUrl}/comment/hot?id=${songid}&type=0`,
+			method:'GET',
+			data:{},
+			success(res) {
+				resolve(res)
+			}
+		})
+	})
+}

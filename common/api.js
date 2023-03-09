@@ -18,10 +18,10 @@ export function timestampToTime(timestamp){
 }
 
 
-export function getSongList(listId){
+export function getSongList(listId,userid){
 	return new Promise(function(resolve,reject){
 		uni.request({
-						url: `${baseUrl}/playlist/detail?id=${listId}`,
+						url: `${baseUrl}/playlist/detail?id=${listId}&userid=${userid}`,
 						method:'GET',
 						data:{},
 						success: res =>{

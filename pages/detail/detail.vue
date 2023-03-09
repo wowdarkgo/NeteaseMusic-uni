@@ -46,20 +46,21 @@
 					<view class="comment-head">
 						<text>热门评论</text>
 					</view>
-					<div v-for="item in hotcomment" :key="item.id" class="comment-item" style="border-bottom: #a5a5ab .5px solid;">
+					<div v-for="item in hotcomment" :key="item.id" class="comment-item"
+						style="border-bottom: #a5a5ab .5px solid;">
 						<view class="comment-user">
 							<view>
 								<img :src="item.user.avatarUrl" alt=""
 									style="width: 50px;border-radius: 50%;float:left;margin-right: 10px;">
+								<van-icon name="like-o" style="font-size: 15px;position:absolute;right: 10px;" />
+								<text style="position: absolute;right:30px;font-size: 10px;">{{item.likedCount}}</text>
+
 								<view class="user-content">
 									{{item.user.nickname}}
-									<van-icon name="like-o" style="font-size: 15px;position:absolute;right: 10px;" />
-									<text
-										style="position: absolute;right:30px;font-size: 10px;">{{item.likedCount}}</text>
 									<text class="comment-time">{{item.timeStr}}</text>
 								</view>
 							</view>
-							</view>
+						</view>
 						<view class="comment-content">
 							{{ item.content }}
 						</view>
@@ -188,10 +189,12 @@
 		-o-filter: blur(15px);
 		-ms-filter: blur(15px);
 		filter: blur(15px) brightness(70%);
+		transform: scale(1.15);
 	}
 
 	.container {
 		position: relative;
+		overflow: hidden;
 	}
 
 	.play {
@@ -266,7 +269,7 @@
 	.recommend-item,
 	.comment-item {
 		display: flex;
-		padding-bottom: 20px;
+		padding-bottom: 10px;
 	}
 
 	.recommend-head,
@@ -291,15 +294,14 @@
 	}
 
 	.user-content {
-		width: 65px;
-		/* text-align: center; */
+		width: 70px;
+		text-align: start;
+		line-height: 15px;
 	}
 
 	.comment-like {
 		position: absolute;
 		right: 10px;
-		/* text-align: center; */
-		/* vertical-align: bottom; */
 		text-align: 10px
 	}
 
@@ -309,9 +311,9 @@
 		color: #dcdddf;
 		margin-top: 10px;
 	}
-	
-	.comment-content{
-		width: 70%;
+
+	.comment-content {
+		width: 60%;
 		margin-top: 10px;
 	}
 </style>

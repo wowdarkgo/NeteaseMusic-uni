@@ -25,7 +25,7 @@
 			},
 			toList(){
 				uni.navigateTo({
-					url:'/pages/list/list?listid=400720330'
+					url:'/pages/list/list?listid=486138039&userid=290161490'
 				})
 			}
 		}

@@ -331,13 +331,13 @@
 	}
 
 	.uni-navbar--shadow {
-		box-shadow: 0 1px 6px #ccc;
+		box-shadow: 0 1px 6px #5d6b9a;
 	}
 
 	.uni-navbar--border {
-		border-bottom-width: 1rpx;
-		border-bottom-style: solid;
-		border-bottom-color: #eee;
+		// border-bottom-width: 1rpx;
+		// border-bottom-style: solid;
+		// border-bottom-color: #eee;
 	}
 
 	.uni-ellipsis-1 {

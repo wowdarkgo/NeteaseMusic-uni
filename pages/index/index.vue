@@ -1,58 +1,72 @@
 <template>
 	<view>
 		<commonTitle></commonTitle>
-		<van-row>
-			<van-col span="24" type="flex">
-				<view @click="ToList($event)" :id="this.songIdList[0]">
-					<img src="../../static/biaosheng.png" alt="" class="songImg">
-					<ul class="songList">
-						<li v-for="(item,index) in upList" :key="item.id">
-							{{index+1}}.{{ item.name }} - {{item.ar[0].name}}
-						</li>
-					</ul>
-				</view>
-			</van-col>
-			<van-col span="24">
-				<view @tap="ToList($event)" :id="this.songIdList[1]">
-					<img src="../../static/rege.png" alt="" class="songImg">
-					<ul class="songList">
-						<li v-for="(item,index) in hotList" :key="item.id">
-							{{index+1}}.{{ item.name }} - {{item.ar[0].name}}
-						</li>
-					</ul>
-				</view>
-			</van-col>
-			<van-col span="24">
-				<view @tap="ToList($event)" :id="this.songIdList[2]">
-					<img src="../../static/yuanchuang.png" alt="" class="songImg">
-					<ul class="songList">
-						<li v-for="(item,index) in originList" :key="item.id">
-							{{index+1}}.{{ item.name }} - {{item.ar[0].name}}
-						</li>
-					</ul>
-				</view>
-			</van-col>
-			<van-col span="24">
-				<view @tap="ToList($event)" :id="this.songIdList[3]">
-					<img src="../../static/xinge.png" alt="" class="songImg">
-					<ul class="songList">
-						<li v-for="(item,index) in newList" :key="item.id">
-							{{index+1}}.{{ item.name }} - {{item.ar[0].name}}
-						</li>
-					</ul>
-				</view>
-			</van-col>
-			<van-col span="24">
-				<view @tap="ToList($event)" :id="this.songIdList[4]">
-					<img src="../../static/ACG.png" alt="" class="songImg">
-					<ul class="songList">
-						<li v-for="(item,index) in ACGList" :key="item.id">
-							{{index+1}}.{{ item.name }} - {{item.ar[0].name}}
-						</li>
-					</ul>
-				</view>
-			</van-col>
-		</van-row>
+		<scroll-view scroll-y="true">
+			<view>
+				<van-row>
+					<van-col span="24" type="flex">
+						<view @click="ToList($event)" :id="this.songIdList[0]">
+							<img src="../../static/biaosheng.png" alt="" class="songImg">
+							<ul class="songList">
+								<li v-for="(item,index) in upList" :key="item.id">
+									{{index+1}}.{{ item.name }} - {{item.ar[0].name}}
+								</li>
+							</ul>
+						</view>
+					</van-col>
+					<van-col span="24">
+						<view @tap="ToList($event)" :id="this.songIdList[1]">
+							<img src="../../static/rege.png" alt="" class="songImg">
+							<ul class="songList">
+								<li v-for="(item,index) in hotList" :key="item.id">
+									{{index+1}}.{{ item.name }} - {{item.ar[0].name}}
+								</li>
+							</ul>
+						</view>
+					</van-col>
+					<van-col span="24">
+						<view @tap="ToList($event)" :id="this.songIdList[2]">
+							<img src="../../static/yuanchuang.png" alt="" class="songImg">
+							<ul class="songList">
+								<li v-for="(item,index) in originList" :key="item.id">
+									{{index+1}}.{{ item.name }} - {{item.ar[0].name}}
+								</li>
+							</ul>
+						</view>
+					</van-col>
+					<van-col span="24">
+						<view @tap="ToList($event)" :id="this.songIdList[3]">
+							<img src="../../static/xinge.png" alt="" class="songImg">
+							<ul class="songList">
+								<li v-for="(item,index) in newList" :key="item.id">
+									{{index+1}}.{{ item.name }} - {{item.ar[0].name}}
+								</li>
+							</ul>
+						</view>
+					</van-col>
+					<van-col span="24">
+						<view @tap="ToList($event)" :id="this.songIdList[4]">
+							<img src="../../static/ACG.png" alt="" class="songImg">
+							<ul class="songList">
+								<li v-for="(item,index) in ACGList" :key="item.id">
+									{{index+1}}.{{ item.name }} - {{item.ar[0].name}}
+								</li>
+							</ul>
+						</view>
+					</van-col>
+					<van-col span="24">
+						<view @tap="ToList($event)" :id="this.songIdList[5]" style="margin-bottom: 20%;">
+							<img src="../../static/Riyu.png" alt="" class="songImg">
+							<ul class="songList">
+								<li v-for="(item,index) in RiyuList" :key="item.id">
+									{{index+1}}.{{ item.name }} - {{item.ar[0].name}}
+								</li>
+							</ul>
+						</view>
+					</van-col>
+				</van-row>
+			</view>
+		</scroll-view>
 		<commonTabbar class="Tabbar"></commonTabbar>
 	</view>
 </template>
@@ -71,7 +85,8 @@
 				originList: [],
 				newList: [],
 				ACGList: [],
-				songIdList: ['19723756', '3778678', '2884035', '3779629', '71385702']
+				RiyuList:[],
+				songIdList: ['19723756', '3778678', '2884035', '3779629', '71385702','5059644681']
 			}
 		},
 		onLoad() {
@@ -90,6 +105,9 @@
 			})
 			getSongList(this.songIdList[4]).then((res) => {
 				this.ACGList = (res.data.playlist.tracks).slice(0, 3)
+			})
+			getSongList(this.songIdList[5]).then((res)=>{
+				this.RiyuList=(res.data.playlist.tracks).slice(0,3)
 			})
 
 		},
@@ -164,9 +182,9 @@
 	.Tabbar {
 		position: absolute;
 		right: 0;
-		/* bottom:0; */
 		left: 0;
 		height: 20px;
 		margin-top: 80rpx;
+		position: sticky;
 	}
 </style>

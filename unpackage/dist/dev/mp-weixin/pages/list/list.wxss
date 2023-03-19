@@ -4,20 +4,9 @@
 	right: 0;
 	bottom: 0;
 	left: 0;
+	position: -webkit-sticky;
+	position: sticky;
 }
-
-/* 	.bgImage {
-	width: 100%;
-	height: 20vh;
-	left: 0;
-	top: 80px;
-	background-image: url('../../static/testbg.jpg');
-	background-size: cover;
-	background-position: center 0;
-	filter: blur(8rpx) brightness(90%); //模糊半径和变暗
-	transform: scale(1.15); //控制边缘是否模糊，小于1的话边缘会模糊
-
-} */
 .listContainer {
 	font-size: 10px;
 	margin-top: 30px;
@@ -51,7 +40,6 @@
 }
 .List {
 	margin-top: 30px;
-	/* margin-left: 15px; */
 	margin-bottom: 30px;
 	background-color: white;
 }
@@ -65,12 +53,17 @@
 	padding-top: 1em;
 	margin-left: 30px;
 	box-shadow: 0 7px 5px -5px rgba(240, 240, 240, .7);
+	text-overflow: ellipsis;
+	overflow: hidden !important;
+	width: 800rpx;
+	white-space: nowrap;
 }
 .songIndex {
 	font-size: 18px;
 	float: left;
 	margin-right: 20px;
 	text-align: center;
+	width: 24px;
 }
 .Logo {
 	width: 20px;

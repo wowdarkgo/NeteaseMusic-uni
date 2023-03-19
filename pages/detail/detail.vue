@@ -1,28 +1,31 @@
 <template>
 	<view>
-
 		<view class="bg bg-blur" :style="{backgroundImage:`url(${coverurl})`}">
 		</view>
 		<view class="container">
 			<scroll-view scroll-y="true">
 				<commonTitle :title="'正在播放 -  '+this.songname" class="nav-bar"></commonTitle>
 				<scroll-view scroll-y="true" style="height: 90vh;">
-
-					<view class="play">
-						<img :src='coverurl' alt="" class="coverImg">
+					<view class="play" @click="controlplay()">
+						<img :src='coverurl' alt="" class="coverImg turn" :style="{'--turn':isturn}">
 						<img src="../../static/disc.png" alt="" class="disc">
 						<img src="../../static/needle.png" alt="" class="needle">
-						<van-icon name="play-circle-o" class="icon-play" />
+						<v-if v-show="!isplay">
+							<van-icon name="play-circle-o" class="icon-play" />
+						</v-if>
+						<v-if v-show="isplay">
+							<van-icon name="pause-circle-o" class="icon-play" />
+						</v-if>
 					</view>
-					<view class="lyric">
-						<view class="lyric-item">
-							苍茫的天涯是我的爱
+					<view class="song-info">
+						<view class="songname">
+							{{songname}}
 						</view>
-						<view class="lyric-item-active">
-							留下那万紫千红一片彩
+						<view class="authorname">
+							{{authorname}}
 						</view>
-						<view class="lyric-item">
-							火辣辣得歌谣使我们的精彩
+						<view class="authorname">
+							{{albumname}}
 						</view>
 					</view>
 				</scroll-view>
@@ -52,9 +55,11 @@
 							<view>
 								<img :src="item.user.avatarUrl" alt=""
 									style="width: 50px;border-radius: 50%;float:left;margin-right: 10px;">
-								<van-icon name="like-o" style="font-size: 15px;position:absolute;right: 10px;" />
-								<text style="position: absolute;right:30px;font-size: 10px;">{{item.likedCount}}</text>
-
+								<view style="position: absolute;right: 10px;">
+									<van-icon name="like-o" style="font-size: 15px;position:absolute;right: 10px;" />
+									<text
+										style="position: absolute;right:30px;font-size: 10px;">{{item.likedCount}}</text>
+								</view>
 								<view class="user-content">
 									{{item.user.nickname}}
 									<text class="comment-time">{{item.timeStr}}</text>
@@ -64,10 +69,10 @@
 						<view class="comment-content">
 							{{ item.content }}
 						</view>
-
 					</div>
 				</view>
 			</scroll-view>
+
 		</view>
 
 		<commonTabbar class="Tabbar"></commonTabbar>
@@ -87,24 +92,34 @@
 			return {
 				songid: '',
 				songname: '',
+				authorname: '',
+				albumname: '',
 				songurl: '',
 				coverurl: '',
 				simisong: [],
 				hotcomment: [],
+				isplay: false,
+				isinit: false,
+				isturn: 'paused',
 			}
 		},
 		methods: {
 			ToDetail(e) {
 				uni.showLoading({
-					title: "加载歌曲中……",
-				})
+						title: "加载歌曲中……",
+					}),
+					this.innerAudioContext.stop();
+				this.isturn = 'paused';
 				getSongData(e.currentTarget.id).then((res) => {
 						this.songname = res.data.songs[0].name,
+						this.authorname = res.data.songs[0].ar[0].name,
+						this.albumname = res.data.songs[0].al.name
 							this.coverurl = res.data.songs[0].al.picUrl
 						// console.log(this.coverurl)
 					}).then(
 						getSongUrl(e.currentTarget.id).then((res) => {
-							this.songurl = res.data.data[0].url
+							this.songurl = res.data.data[0].url;
+							console.log(this.songurl)
 							// console.log(res.data.data[0].url)
 							setInterval(function() {
 								uni.hideLoading()
@@ -115,15 +130,32 @@
 						// console.log(this.simisong)
 					})).then(getHotComment(e.currentTarget.id).then((res) => {
 						this.hotcomment = [...res.data.hotComments].slice(0, 10)
-					}))
-
+					})).then(this.isplay = false, this.isinit = false)
 					.catch((err) => {
 						uni.showToast({
 							title: '请重新进入列表或更换歌曲',
 							icon: 'error'
 						})
 					})
-			}
+			},
+			controlplay() {
+				if (!this.isinit) {
+					this.innerAudioContext.loop = true;
+					this.innerAudioContext.src = this.songurl;
+					this.isinit = true;
+					console.log('音乐初始化成功')
+				}
+				this.isplay = !this.isplay;
+				if (this.isplay) {
+					this.innerAudioContext.play()
+					this.isturn = "running";
+					console.log('开始播放')
+				} else {
+					this.innerAudioContext.pause();
+					this.isturn = "paused"
+					console.log('结束播放')
+				}
+			},
 		},
 		onLoad(option) {
 			this.songid = option.songid,
@@ -132,11 +164,13 @@
 				})
 			getSongData(this.songid).then((res) => {
 					this.songname = res.data.songs[0].name,
-						this.coverurl = res.data.songs[0].al.picUrl
-					// console.log(this.coverurl)
+						this.authorname = res.data.songs[0].ar[0].name,
+						this.albumname = res.data.songs[0].al.name
+					this.coverurl = res.data.songs[0].al.picUrl
 				}).then(
 					getSongUrl(this.songid).then((res) => {
 						this.songurl = res.data.data[0].url
+						console.log(this.songurl)
 						// console.log(res.data.data[0].url)
 						setInterval(function() {
 							uni.hideLoading()
@@ -144,33 +178,32 @@
 					})
 				).then(getSimiSong(this.songid).then((res) => {
 					this.simisong = [...res.data.songs].slice(0, 5)
-					// console.log(this.simisong)
 				})).then(getHotComment(this.songid).then((res) => {
-					this.hotcomment = [...res.data.hotComments].slice(0, 10)
+					this.hotcomment = [...res.data.hotComments]
 				}))
-
 				.catch((err) => {
 					uni.showToast({
 						title: '请重新进入列表或更换歌曲',
 						icon: 'error'
 					})
 				})
-
+			//歌曲播放
+			this.innerAudioContext = uni.createInnerAudioContext();
+		},
+		onBackPress() {
+			this.innerAudioContext.stop()
+			console.log('返回')
 		}
 	}
 </script>
 
 <style>
-	.nav-bar {
-		position: sticky;
-		top: 0;
-	}
-
 	.Tabbar {
-		position: absolute fixed;
+		position: absolute;
 		right: 0;
 		bottom: 0;
 		left: 0;
+		position: fixed;
 	}
 
 	.bg {
@@ -214,6 +247,24 @@
 		top: 50%;
 		transform: translate(-50%, -50%);
 		/*自己的50%*/
+
+	}
+
+	.turn {
+		//旋转动画
+		animation: turn 20s linear infinite;
+		animation-play-state: var(--turn) !important;
+		-webkit-animation: turn 20s linear infinite;
+	}
+
+	@keyframes turn {
+		from {
+			transform: translate(-50%, -50%) rotate(0deg);
+		}
+
+		to {
+			transform: translate(-50%, -50%) rotate(359deg);
+		}
 	}
 
 	.disc {
@@ -241,13 +292,25 @@
 		transform: translate(-50%, -50%);
 	}
 
-	.lyric {
+	.song-info {
 		font-size: 12px;
 		position: absolute;
 		left: 50%;
 		top: 80%;
 		transform: translate(-50%, -50%);
 		text-align: center;
+		width: 100%;
+	}
+
+	.songname {
+		font-size: 2em;
+		color: white;
+	}
+
+	.authorname {
+		font-size: 1.25em;
+		color: white;
+		margin-top: .5em;
 	}
 
 	.lyric-item {
@@ -264,6 +327,11 @@
 	.comment {
 		margin-left: 10px;
 		margin-top: 10px;
+		/* margin-bottom: 20%; */
+	}
+
+	.comment {
+		margin-bottom: 20%;
 	}
 
 	.recommend-item,
@@ -285,6 +353,9 @@
 		color: #ffffff;
 		float: left;
 		margin-left: 10px;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		width: 70%;
 	}
 
 	.comment-time {

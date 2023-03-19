@@ -1,51 +1,56 @@
 <template>
 	<view>
 		<commonTitle :title='"歌单列表  -  "+this.listName'></commonTitle>
-		<view>
-			<view class="listContainer">
-				<view class="cover">
-					<img :src="coverUrl" class="coverImg">
-					<view class="listText">
-						<p class="listName">
-							{{listName}}
-						</p>
-						<p>
-							<img :src="authorUrl" class="authorImg">
-							{{listAuthor}}
-						</p>
-						<p>{{listDescription}}</p>
-						<p>更新时间：{{UpdateTime}}</p>
-					</view>
-				</view>
+		<scroll-view scroll-y="true">
 
-			</view>
 
-			<view class="List">
-				<view class="listHead">
-					<van-icon name="play-circle-o" style="vertical-align: middle;margin-right: 5px;" />
-					<text style="font-size: 14px; vertical-align:middle">播放全部</text>
-				</view>
-				<view>
-					<view v-for="(item,index) in list" :key="item.id" class="musicList" @click="ToDetail($event)"
-						:id="item.id">
-						<van-icon name="play-circle-o" style="font-size: 30px; position: absolute; right: 10px;" />
-						<view class="songIndex">
-							{{index+1}}
-						</view>
-						{{ item.name}}
-						<img v-if="privileges[index].flag===1028" src="../../static/VIPlogo.png" alt="" class="Logo">
-						<img v-if="privileges[index].maxbr>=999000" src="../../static/SQlogo.png" alt="" class="Logo">
-						<view class="author">
-							{{item.ar[0].name}}
+			<view>
+				<view class="listContainer">
+					<view class="cover">
+						<img :src="coverUrl" class="coverImg">
+						<view class="listText">
+							<p class="listName">
+								{{listName}}
+							</p>
+							<p>
+								<img :src="authorUrl" class="authorImg">
+								{{listAuthor}}
+							</p>
+							<p>{{listDescription}}</p>
+							<p>更新时间：{{UpdateTime}}</p>
 						</view>
 					</view>
 
 				</view>
 
+				<view class="List">
+					<view class="listHead">
+						<van-icon name="play-circle-o" style="vertical-align: middle;margin-right: 5px;" />
+						<text style="font-size: 14px; vertical-align:middle">播放全部</text>
+					</view>
+					<view>
+						<view v-for="(item,index) in list" :key="item.id" class="musicList" @click="ToDetail($event)"
+							:id="item.id">
+							<van-icon name="play-circle-o" style="font-size: 30px; position: absolute; right: 10px;" />
+							<view class="songIndex">
+								{{index+1}}
+							</view>
+							{{ item.name}}
+							<img v-if="privileges[index].flag===1028" src="../../static/VIPlogo.png" alt=""
+								class="Logo">
+							<img v-if="privileges[index].maxbr>=999000" src="../../static/SQlogo.png" alt=""
+								class="Logo">
+							<view class="author">
+								{{item.ar[0].name}}
+							</view>
+						</view>
+
+					</view>
+
+				</view>
+
 			</view>
-
-		</view>
-
+		</scroll-view>
 		<!-- 下面为歌单列表模块 -->
 
 
@@ -98,11 +103,11 @@
 				setInterval(function() {
 					uni.hideLoading()
 				}, 1000)
-			}).catch((err)=>{
+			}).catch((err) => {
 				console.log(err)
 				uni.showToast({
-					title:'请重新进入列表',
-					icon:'error'
+					title: '请重新进入列表',
+					icon: 'error'
 				})
 			})
 
@@ -116,7 +121,10 @@
 		right: 0;
 		bottom: 0;
 		left: 0;
+		position: sticky;
+
 	}
+
 	.listContainer {
 		font-size: 10px;
 		margin-top: 30px;
@@ -155,7 +163,6 @@
 
 	.List {
 		margin-top: 30px;
-		/* margin-left: 15px; */
 		margin-bottom: 30px;
 		background-color: white;
 	}
@@ -182,6 +189,7 @@
 		float: left;
 		margin-right: 20px;
 		text-align: center;
+		width: 24px;
 	}
 
 	.Logo {

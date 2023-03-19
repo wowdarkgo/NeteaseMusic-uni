@@ -14,3 +14,5 @@
 <image width="400" src="https://github.com/wowdarkgo/NeteaseMusic-uni/blob/master/screenshot/play(no%20lyric).png"/>
 2. 列表页
 <image width="400" src="https://github.com/wowdarkgo/NeteaseMusic-uni/blob/master/screenshot/list.png"/>
+3. 评论页
+<image width="400" src="https://github.com/wowdarkgo/NeteaseMusic-uni/blob/master/screenshot/comment.png"/>

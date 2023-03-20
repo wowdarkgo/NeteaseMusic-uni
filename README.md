@@ -19,4 +19,4 @@
 3. 评论页
 <image width="400" src="https://github.com/wowdarkgo/NeteaseMusic-uni/blob/master/screenshot/comment.png"/>
 4. 歌手页
-5. <image width="400" src="https://github.com/wowdarkgo/NeteaseMusic-uni/blob/master/screenshot/artists.png"/>
+<image width="400" src="https://github.com/wowdarkgo/NeteaseMusic-uni/blob/master/screenshot/artists.png"/>

@@ -7,7 +7,9 @@
 ### 目前页面
 1. 主页（三个榜单）
 2. 列表页（对应的歌曲获取）
-3. 播放页【仍未完善】（对应的歌曲播放功能）
+3. 播放页（对应的歌曲播放功能）
+4. 播放页相关歌曲、热门评论
+5. 歌手页
 
 ### 截图展示
 1. 播放页
@@ -16,3 +18,5 @@
 <image width="400" src="https://github.com/wowdarkgo/NeteaseMusic-uni/blob/master/screenshot/list.png"/>
 3. 评论页
 <image width="400" src="https://github.com/wowdarkgo/NeteaseMusic-uni/blob/master/screenshot/comment.png"/>
+4. 歌手页
+<image width="400" src="https://github.com/wowdarkgo/NeteaseMusic-uni/blob/master/screenshot/artists.png"/>

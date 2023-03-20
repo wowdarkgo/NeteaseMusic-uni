@@ -22,7 +22,8 @@
 						<view class="songname">
 							{{songname}}
 						</view>
-						<view class="authorname"  @tap="ToArtist($event)" :id="this.artistid">
+						<view class="authorname" @tap="ToArtist($event)" :id="this.artistid"
+							style="text-decoration: underline;">
 							歌手：{{authorname}}
 						</view>
 						<view class="authorname">
@@ -34,7 +35,7 @@
 					<view class="recommend-head">
 						<text>喜欢这首歌的人也听</text>
 					</view>
-					<div v-for="item in simisong" :key="item.id" class="recommend-item" :id="item.id"
+					<view v-for="item in simisong" :key="item.id" class="recommend-item" :id="item.id"
 						@click="ToDetail($event)">
 						<img :src='item.album.blurPicUrl' alt="" style="width: 50px;border-radius: 10%;float: left;">
 						<view class="item-content">
@@ -44,14 +45,14 @@
 								{{item.artists[0].name}}
 							</view>
 						</view>
-					</div>
+					</view>
 				</view>
 				<view class="comment">
 					<view class="comment-head">
 						<text>热门评论</text>
 					</view>
 					<div v-for="item in hotcomment" :key="item.id" class="comment-item"
-						style="border-bottom: #a5a5ab .5px solid;">
+						style="border-bottom: darkgray .5px solid ;">
 						<view class="comment-user">
 							<view>
 								<img :src="item.user.avatarUrl" alt=""
@@ -71,6 +72,7 @@
 							{{ item.content }}
 						</view>
 					</div>
+					<text class="more">更多评论请前往App查看</text>
 				</view>
 			</scroll-view>
 
@@ -345,7 +347,7 @@
 	.recommend,
 	.comment {
 		margin-left: 10px;
-		margin-top: 10px;
+		margin-top: 40px;
 		/* margin-bottom: 20%; */
 	}
 
@@ -374,7 +376,7 @@
 		margin-left: 10px;
 		text-overflow: ellipsis;
 		overflow: hidden;
-		width: 70%;
+		width: 75%;
 	}
 
 	.comment-time {
@@ -403,7 +405,17 @@
 	}
 
 	.comment-content {
-		width: 60%;
+		width: 55%;
 		margin-top: 10px;
+	}
+
+	.more {
+		font-size: 12px;
+		color: #dcdddf;
+		text-decoration: underline;
+		margin-top: 20px;
+		left: 50%;
+		position: absolute;
+		transform: translate(-50%, -50%);
 	}
 </style>

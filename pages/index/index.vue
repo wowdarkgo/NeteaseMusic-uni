@@ -85,8 +85,8 @@
 				originList: [],
 				newList: [],
 				ACGList: [],
-				RiyuList:[],
-				songIdList: ['19723756', '3778678', '2884035', '3779629', '71385702','5059644681']
+				RiyuList: [],
+				songIdList: ['19723756', '3778678', '2884035', '3779629', '71385702', '5059644681']
 			}
 		},
 		onLoad() {
@@ -106,8 +106,8 @@
 			getSongList(this.songIdList[4]).then((res) => {
 				this.ACGList = (res.data.playlist.tracks).slice(0, 3)
 			})
-			getSongList(this.songIdList[5]).then((res)=>{
-				this.RiyuList=(res.data.playlist.tracks).slice(0,3)
+			getSongList(this.songIdList[5]).then((res) => {
+				this.RiyuList = (res.data.playlist.tracks).slice(0, 3)
 			})
 
 		},
@@ -116,7 +116,8 @@
 				uni.navigateTo({
 					url: `/pages/list/list?listid=${e.target.id}`
 				})
-			}
+			},
+		
 		},
 		components: {
 			commonTitle
@@ -125,6 +126,10 @@
 </script>
 
 <style>
+	.search-bar {
+		margin-top: 10px;
+	}
+
 	.content {
 		display: flex;
 		flex-direction: column;

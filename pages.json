@@ -37,7 +37,16 @@
                 "enablePullDownRefresh": false
             }
             
+        } ,{
+            "path" : "pages/search/search",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
         }
+		
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
@@ -85,6 +94,7 @@
 		      "van-uploader": "/wxcomponents/vant/uploader/index",
 			    "van-tabbar": "/wxcomponents/vant/tabbar/index",
 			    "van-tabbar-item": "/wxcomponents/vant/tabbar-item/index"
+				
 		    }
 	},
 	"uniIdRouter": {}

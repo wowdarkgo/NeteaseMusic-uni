@@ -107,3 +107,16 @@ export function getArtistData(artistid){
 		})
 	})
 }
+
+export function getHotSearch(){
+	return new Promise(function(resolve,reject){
+		uni.request({
+			url:`${baseUrl}/search/hot/detail`,
+			method:'GET',
+			data:{},
+			success:res=>{
+				resolve(res)
+			}
+		})
+	})
+}

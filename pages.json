@@ -6,15 +6,6 @@
 				"navigationBarTitleText": "uni-app"
 			}
 		}
-        // ,{
-        //     "path" : "components/commonTitle/commonTitle",
-        //     "style" :                                                                                    
-        //     {
-        //         "navigationBarTitleText": "",
-        //         "enablePullDownRefresh": false
-        //     }
-            
-        // }
         ,{
             "path" : "pages/list/list",
             "style" :                                                                                    
@@ -31,6 +22,15 @@
         }
         ,{
             "path" : "pages/detail/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/artists/artists",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",

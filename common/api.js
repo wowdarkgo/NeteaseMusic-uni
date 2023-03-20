@@ -94,3 +94,16 @@ export function getHotComment(songid) {
 		})
 	})
 }
+
+export function getArtistData(artistid){
+	return new Promise(function(resolve,reject){
+		uni.request({
+			url:`${baseUrl}/artists?id=${artistid}`,
+			method:'GET',
+			data:{},
+			success:res=>{
+				resolve(res)
+			}
+		})
+	})
+}

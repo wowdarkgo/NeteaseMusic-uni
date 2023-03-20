@@ -10,22 +10,23 @@
 						<img :src='coverurl' alt="" class="coverImg turn" :style="{'--turn':isturn}">
 						<img src="../../static/disc.png" alt="" class="disc">
 						<img src="../../static/needle.png" alt="" class="needle">
-						<v-if v-show="!isplay">
+						<view v-show='!isplay'>
 							<van-icon name="play-circle-o" class="icon-play" />
-						</v-if>
-						<v-if v-show="isplay">
+						</view>
+						<view v-show="isplay">
 							<van-icon name="pause-circle-o" class="icon-play" />
-						</v-if>
+						</view>
+
 					</view>
 					<view class="song-info">
 						<view class="songname">
 							{{songname}}
 						</view>
-						<view class="authorname">
-							{{authorname}}
+						<view class="authorname"  @tap="ToArtist($event)" :id="this.artistid">
+							歌手：{{authorname}}
 						</view>
 						<view class="authorname">
-							{{albumname}}
+							专辑：{{albumname}}
 						</view>
 					</view>
 				</scroll-view>
@@ -94,10 +95,12 @@
 				songname: '',
 				authorname: '',
 				albumname: '',
+				artistid: '',
 				songurl: '',
 				coverurl: '',
 				simisong: [],
 				hotcomment: [],
+				privileges: [],
 				isplay: false,
 				isinit: false,
 				isturn: 'paused',
@@ -112,15 +115,14 @@
 				this.isturn = 'paused';
 				getSongData(e.currentTarget.id).then((res) => {
 						this.songname = res.data.songs[0].name,
-						this.authorname = res.data.songs[0].ar[0].name,
-						this.albumname = res.data.songs[0].al.name
+							this.authorname = res.data.songs[0].ar[0].name,
+							this.albumname = res.data.songs[0].al.name,
+							this.artistid = res.data.songs[0].ar[0].id,
 							this.coverurl = res.data.songs[0].al.picUrl
-						// console.log(this.coverurl)
 					}).then(
 						getSongUrl(e.currentTarget.id).then((res) => {
 							this.songurl = res.data.data[0].url;
 							console.log(this.songurl)
-							// console.log(res.data.data[0].url)
 							setInterval(function() {
 								uni.hideLoading()
 							}, 1000)
@@ -138,12 +140,26 @@
 						})
 					})
 			},
+			ToArtist(e) {
+				uni.navigateTo({
+					url: `/pages/artists/artists?id=${e.target.id}`
+				})
+				this.innerAudioContext.stop()
+			},
 			controlplay() {
 				if (!this.isinit) {
+					this.innerAudioContext.destroy();
 					this.innerAudioContext.loop = true;
 					this.innerAudioContext.src = this.songurl;
 					this.isinit = true;
 					console.log('音乐初始化成功')
+					if (this.privileges.fee === 1) {
+						uni.showToast({
+							title: '会员专享歌曲，仅可试听30秒',
+							icon: 'none',
+							duration: 2000
+						})
+					}
 				}
 				this.isplay = !this.isplay;
 				if (this.isplay) {
@@ -165,8 +181,10 @@
 			getSongData(this.songid).then((res) => {
 					this.songname = res.data.songs[0].name,
 						this.authorname = res.data.songs[0].ar[0].name,
-						this.albumname = res.data.songs[0].al.name
-					this.coverurl = res.data.songs[0].al.picUrl
+						this.albumname = res.data.songs[0].al.name,
+						this.artistid = res.data.songs[0].ar[0].id,
+						this.coverurl = res.data.songs[0].al.picUrl,
+						this.privileges = res.data.privileges[0]
 				}).then(
 					getSongUrl(this.songid).then((res) => {
 						this.songurl = res.data.data[0].url
@@ -267,6 +285,7 @@
 		}
 	}
 
+
 	.disc {
 		position: relative;
 		width: 300px;
@@ -308,8 +327,8 @@
 	}
 
 	.authorname {
-		font-size: 1.25em;
-		color: white;
+		font-size: 1.10em;
+		color: #dcdddf;
 		margin-top: .5em;
 	}
 

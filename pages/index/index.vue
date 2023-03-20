@@ -113,7 +113,6 @@
 		},
 		methods: {
 			ToList(e) {
-				console.log(e.target.id)
 				uni.navigateTo({
 					url: `/pages/list/list?listid=${e.target.id}`
 				})

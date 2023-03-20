@@ -2,8 +2,6 @@
 	<view>
 		<commonTitle :title='"歌单列表  -  "+this.listName'></commonTitle>
 		<scroll-view scroll-y="true">
-
-
 			<view>
 				<view class="listContainer">
 					<view class="cover">
@@ -17,16 +15,16 @@
 								{{listAuthor}}
 							</p>
 							<p>{{listDescription}}</p>
-							<p>更新时间：{{UpdateTime}}</p>
 						</view>
 					</view>
 
 				</view>
 
 				<view class="List">
-					<view class="listHead">
+					<view class="listHead" @tap="ToDetail($event)"
+							:id="firstSongId">
 						<van-icon name="play-circle-o" style="vertical-align: middle;margin-right: 5px;" />
-						<text style="font-size: 14px; vertical-align:middle">播放全部</text>
+						<text style="font-size: 14px; vertical-align:middle" >开始播放</text>
 					</view>
 					<view>
 						<view v-for="(item,index) in list" :key="item.id" class="musicList" @click="ToDetail($event)"
@@ -74,12 +72,12 @@
 				listDescription: '',
 				UpdateTime: '',
 				list: [],
+				firstSongId:'',
 				privileges: []
 			}
 		},
 		methods: {
 			ToDetail(e) {
-				// console.log(e.target.id)
 				uni.navigateTo({
 					url: `/pages/detail/detail?songid=${e.target.id}`
 				})
@@ -99,6 +97,7 @@
 				this.listDescription = res.data.playlist.description;
 				this.UpdateTime = timestampToTime(res.data.playlist.trackUpdateTime);
 				this.list = [...res.data.playlist.tracks].slice(0, 99);
+				this.firstSongId=res.data.playlist.tracks[0].id;
 				this.privileges = [...res.data.privileges];
 				setInterval(function() {
 					uni.hideLoading()

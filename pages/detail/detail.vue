@@ -4,7 +4,10 @@
 		</view>
 		<view class="container">
 			<scroll-view scroll-y="true">
-				<commonTitle :title="'正在播放 -  '+this.songname" class="nav-bar"></commonTitle>
+
+				<view class="back" @tap="back()">
+					<van-icon name="arrow-left" class="back-arrow" />
+				</view>
 				<scroll-view scroll-y="true" style="height: 90vh;">
 					<view class="play" @click="controlplay()">
 						<img :src='coverurl' alt="" class="coverImg turn" :style="{'--turn':isturn}">
@@ -142,6 +145,9 @@
 						})
 					})
 			},
+			back() {
+				uni.navigateBack()
+			},
 			ToArtist(e) {
 				uni.navigateTo({
 					url: `/pages/artists/artists?id=${e.target.id}`
@@ -202,10 +208,21 @@
 					this.hotcomment = [...res.data.hotComments]
 				}))
 				.catch((err) => {
-					uni.showToast({
-						title: '请重新进入列表或更换歌曲',
-						icon: 'error'
-					})
+					uni.showModal({
+						title: '加载失败',
+						content: '请重新进入歌曲播放页',
+						cancelText: '返回主页',
+						confirmText: '返回列表',
+						success: function(res) {
+							if (res.confirm) {
+								uni.navigateBack()
+							} else if (res.cancel) {
+								uni.navigateTo({
+									url: '/pages/index/index'
+								});
+							}
+						}
+					});
 				})
 			//歌曲播放
 			this.innerAudioContext = uni.createInnerAudioContext();
@@ -218,12 +235,23 @@
 </script>
 
 <style>
-	.Tabbar {
+	.back {
+		width: 200px;
 		position: absolute;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		position: fixed;
+		left: 20px;
+		top: 20px;
+		background-color: #cccccc;
+		;
+		z-index: 1;
+	}
+
+	.back-arrow {
+		color: white;
+		font-size: 16px;
+		position: absolute;
+		width: 40px;
+		height: 40px;
+		border-radius: 40%;
 	}
 
 	.bg {
@@ -326,6 +354,7 @@
 	.songname {
 		font-size: 2em;
 		color: white;
+		margin-top: 6em;
 	}
 
 	.authorname {
@@ -334,25 +363,12 @@
 		margin-top: .5em;
 	}
 
-	.lyric-item {
-		margin: 15px 0 15px 0;
-		color: #646468
-	}
-
-	.lyric-item-active {
-		font-size: 15px;
-		color: #ffffff;
-	}
-
-	.recommend,
-	.comment {
-		margin-left: 10px;
-		margin-top: 40px;
-		/* margin-bottom: 20%; */
+	.recommend {
+		margin: 100px 0 0 10px
 	}
 
 	.comment {
-		margin-bottom: 20%;
+		margin: 20px 0 20% 10px
 	}
 
 	.recommend-item,
@@ -370,13 +386,13 @@
 
 	.item-content,
 	.comment-content {
-		font-size: 15px;
+		font-size: 14px;
 		color: #ffffff;
 		float: left;
 		margin-left: 10px;
 		text-overflow: ellipsis;
 		overflow: hidden;
-		width: 75%;
+		width: 90%;
 	}
 
 	.comment-time {
@@ -388,7 +404,7 @@
 	.user-content {
 		width: 70px;
 		text-align: start;
-		line-height: 15px;
+		white-space: nowrap;
 	}
 
 	.comment-like {
@@ -402,11 +418,16 @@
 		font-size: 13px;
 		color: #dcdddf;
 		margin-top: 10px;
+		width: 50px;
+	}
+
+	.item-author {
+		width: 100%;
 	}
 
 	.comment-content {
-		width: 55%;
-		margin-top: 10px;
+		width: 90%;
+		margin-top: 50px;
 	}
 
 	.more {

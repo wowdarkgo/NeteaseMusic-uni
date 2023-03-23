@@ -22,7 +22,7 @@ export function timestampToTime(timestamp) {
 export function getSongList(listId, userid) {
 	return new Promise(function(resolve, reject) {
 		uni.request({
-			url: `${baseUrl}/playlist/detail?id=${listId}&userid=${userid}`,
+			url: `${baseUrl}/playlist/detail?id=${listId}&userid=${userid}&realIP=116.25.146.177`,
 			method: 'GET',
 			data: {},
 			success: res => {
@@ -31,22 +31,11 @@ export function getSongList(listId, userid) {
 		})
 	})
 }
-export function getUserFollow(userId) {
-	return new Promise(function(resolve, reject) {
-		uni.request({
-			url: `${baseUrl}/user/follows?uid=${userId}`,
-			method: 'GET',
-			data: {},
-			success: res => {
-				resolve(res)
-			}
-		})
-	})
-}
+
 export function getSongUrl(songid) {
 	return new Promise(function(resolve, reject) {
 		uni.request({
-			url: `${baseUrl}/song/url?id=${songid}`,
+			url: `${baseUrl}/song/url?id=${songid}&realIP=116.25.146.177`,
 			method: 'GET',
 			data: {},
 			success:res=> {
@@ -59,7 +48,7 @@ export function getSongUrl(songid) {
 export function getSongData(songid) {
 	return new Promise(function(resolve, reject) {
 		uni.request({
-			url: `${baseUrl}/song/detail?ids=${songid}`,
+			url: `${baseUrl}/song/detail?ids=${songid}&realIP=116.25.146.177`,
 			method: 'GET',
 			data: {},
 			success:res=> {
@@ -72,7 +61,7 @@ export function getSongData(songid) {
 export function getSimiSong(songid) {
 	return new Promise(function(resolve, reject) {
 		uni.request({
-			url: `${baseUrl}/simi/song?id=${songid}`,
+			url: `${baseUrl}/simi/song?id=${songid}&realIP=116.25.146.177`,
 			method: 'GET',
 			data: {},
 			success:res=> {
@@ -85,7 +74,7 @@ export function getSimiSong(songid) {
 export function getHotComment(songid) {
 	return new Promise(function(resolve, reject) {
 		uni.request({
-			url: `${baseUrl}/comment/hot?id=${songid}&type=0`,
+			url: `${baseUrl}/comment/hot?id=${songid}&type=0&realIP=116.25.146.177`,
 			method: 'GET',
 			data: {},
 			success:res=> {
@@ -98,7 +87,7 @@ export function getHotComment(songid) {
 export function getArtistData(artistid){
 	return new Promise(function(resolve,reject){
 		uni.request({
-			url:`${baseUrl}/artists?id=${artistid}`,
+			url:`${baseUrl}/artists?id=${artistid}&realIP=116.25.146.177`,
 			method:'GET',
 			data:{},
 			success:res=>{
@@ -111,7 +100,20 @@ export function getArtistData(artistid){
 export function getHotSearch(){
 	return new Promise(function(resolve,reject){
 		uni.request({
-			url:`${baseUrl}/search/hot/detail`,
+			url:`${baseUrl}/search/hot/detail&realIP=116.25.146.177`,
+			method:'GET',
+			data:{},
+			success:res=>{
+				resolve(res)
+			}
+		})
+	})
+}
+
+export function getSearchResult(keywords){
+	return new Promise(function(resolve,reject){
+		uni.request({
+			url:`${baseUrl}/search?keywords=${keywords}&realIP=116.25.146.177`,
 			method:'GET',
 			data:{},
 			success:res=>{

@@ -33,7 +33,7 @@
 							<view class="songIndex">
 								{{index+1}}
 							</view>
-							{{ item.name}}
+							<text>{{ item.name}}</text>
 							<img v-if="privileges[index].flag===1028" src="../../static/VIPlogo.png" alt=""
 								class="Logo">
 							<img v-if="privileges[index].maxbr>=999000" src="../../static/SQlogo.png" alt=""
@@ -42,7 +42,6 @@
 								{{item.ar[0].name}}
 							</view>
 						</view>
-
 					</view>
 
 				</view>

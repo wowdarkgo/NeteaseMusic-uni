@@ -101,10 +101,10 @@ var components
 try {
   components = {
     commonTitle: function () {
-      return __webpack_require__.e(/*! import() | components/commonTitle/commonTitle */ "components/commonTitle/commonTitle").then(__webpack_require__.bind(null, /*! @/components/commonTitle/commonTitle.vue */ 69))
+      return __webpack_require__.e(/*! import() | components/commonTitle/commonTitle */ "components/commonTitle/commonTitle").then(__webpack_require__.bind(null, /*! @/components/commonTitle/commonTitle.vue */ 94))
     },
     commonTabbar: function () {
-      return __webpack_require__.e(/*! import() | components/commonTabbar/commonTabbar */ "components/commonTabbar/commonTabbar").then(__webpack_require__.bind(null, /*! @/components/commonTabbar/commonTabbar.vue */ 76))
+      return __webpack_require__.e(/*! import() | components/commonTabbar/commonTabbar */ "components/commonTabbar/commonTabbar").then(__webpack_require__.bind(null, /*! @/components/commonTabbar/commonTabbar.vue */ 101))
     },
   }
 } catch (e) {
@@ -189,7 +189,7 @@ exports.default = void 0;
 var _api = __webpack_require__(/*! ../../common/api.js */ 45);
 var commonTitle = function commonTitle() {
   __webpack_require__.e(/*! require.ensure | components/commonTitle/commonTitle */ "components/commonTitle/commonTitle").then((function () {
-    return resolve(__webpack_require__(/*! ../../components/commonTitle/commonTitle.vue */ 69));
+    return resolve(__webpack_require__(/*! ../../components/commonTitle/commonTitle.vue */ 94));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var _default = {
@@ -226,7 +226,6 @@ var _default = {
   },
   methods: {
     ToList: function ToList(e) {
-      console.log(e.target.id);
       uni.navigateTo({
         url: "/pages/list/list?listid=".concat(e.target.id)
       });

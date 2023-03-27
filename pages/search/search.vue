@@ -49,6 +49,8 @@
 				</view>
 			</view>
 		</block>
+		<view class="more">
+		</view>
 		<commonTabbar class="Tabbar"></commonTabbar>
 	</view>
 </template>
@@ -115,6 +117,12 @@
 </script>
 
 <style>
+	.Tabbar {
+		width: 100%;
+		position: fixed;
+		bottom: 0;
+	}
+	
 	.search-bar {
 		margin-top: 10px;
 	}
@@ -171,7 +179,7 @@
 		box-shadow: 0 7px 5px -5px rgba(240, 240, 240, .7);
 		text-overflow: ellipsis;
 		overflow: hidden !important;
-		width: 800rpx;
+		width: 100%;
 		white-space: nowrap;
 	}
 
@@ -190,5 +198,8 @@
 
 	.author {
 		font-size: 12px;
+	}
+	.more {
+		margin-top: 60px;
 	}
 </style>

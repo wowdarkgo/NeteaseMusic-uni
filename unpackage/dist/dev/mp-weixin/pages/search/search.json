@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "common-title": "/components/commonTitle/commonTitle",
+    "uni-search-bar": "/uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar",
+    "common-tabbar": "/components/commonTabbar/commonTabbar"
+  }
+}

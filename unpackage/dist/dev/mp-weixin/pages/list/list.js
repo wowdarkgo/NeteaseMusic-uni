@@ -101,10 +101,10 @@ var components
 try {
   components = {
     commonTitle: function () {
-      return __webpack_require__.e(/*! import() | components/commonTitle/commonTitle */ "components/commonTitle/commonTitle").then(__webpack_require__.bind(null, /*! @/components/commonTitle/commonTitle.vue */ 69))
+      return __webpack_require__.e(/*! import() | components/commonTitle/commonTitle */ "components/commonTitle/commonTitle").then(__webpack_require__.bind(null, /*! @/components/commonTitle/commonTitle.vue */ 94))
     },
     commonTabbar: function () {
-      return __webpack_require__.e(/*! import() | components/commonTabbar/commonTabbar */ "components/commonTabbar/commonTabbar").then(__webpack_require__.bind(null, /*! @/components/commonTabbar/commonTabbar.vue */ 76))
+      return __webpack_require__.e(/*! import() | components/commonTabbar/commonTabbar */ "components/commonTabbar/commonTabbar").then(__webpack_require__.bind(null, /*! @/components/commonTabbar/commonTabbar.vue */ 101))
     },
   }
 } catch (e) {
@@ -249,11 +249,6 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 45);
 //
 //
 //
-//
-//
-//
-//
-//
 var _default = {
   data: function data() {
     return {
@@ -265,12 +260,12 @@ var _default = {
       listDescription: '',
       UpdateTime: '',
       list: [],
+      firstSongId: '',
       privileges: []
     };
   },
   methods: {
     ToDetail: function ToDetail(e) {
-      // console.log(e.target.id)
       uni.navigateTo({
         url: "/pages/detail/detail?songid=".concat(e.target.id)
       });
@@ -283,13 +278,14 @@ var _default = {
       title: "拉取歌单中……"
     });
     (0, _api.getSongList)(this.listid).then(function (res) {
-      _this.coverUrl = res.data.playlist.coverImgUrl;
       _this.listName = res.data.playlist.name;
+      _this.coverUrl = res.data.playlist.coverImgUrl;
       _this.listAuthor = res.data.playlist.creator.nickname;
       _this.authorUrl = res.data.playlist.creator.avatarUrl;
       _this.listDescription = res.data.playlist.description;
       _this.UpdateTime = (0, _api.timestampToTime)(res.data.playlist.trackUpdateTime);
       _this.list = (0, _toConsumableArray2.default)(res.data.playlist.tracks).slice(0, 99);
+      _this.firstSongId = res.data.playlist.tracks[0].id;
       _this.privileges = (0, _toConsumableArray2.default)(res.data.privileges);
       setInterval(function () {
         uni.hideLoading();

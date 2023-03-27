@@ -9663,12 +9663,15 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOUAAADkCAIAAADo
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.getAlbumData = getAlbumData;
+exports.getArtistData = getArtistData;
 exports.getHotComment = getHotComment;
+exports.getHotSearch = getHotSearch;
+exports.getSearchResult = getSearchResult;
 exports.getSimiSong = getSimiSong;
 exports.getSongData = getSongData;
 exports.getSongList = getSongList;
 exports.getSongUrl = getSongUrl;
-exports.getUserFollow = getUserFollow;
 exports.timestampToTime = timestampToTime;
 var _config = __webpack_require__(/*! ./config.js */ 46);
 function timestampToTime(timestamp) {
@@ -9682,25 +9685,14 @@ function timestampToTime(timestamp) {
     var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
     var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
     var s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
-    return Y + M + D + h + m + s;
+    return Y + M + D;
   }
 }
 function getSongList(listId, userid) {
+  userid = userid || 290161490;
   return new Promise(function (resolve, reject) {
     uni.request({
       url: "".concat(_config.baseUrl, "/playlist/detail?id=").concat(listId, "&userid=").concat(userid),
-      method: 'GET',
-      data: {},
-      success: function success(res) {
-        resolve(res);
-      }
-    });
-  });
-}
-function getUserFollow(userId) {
-  return new Promise(function (resolve, reject) {
-    uni.request({
-      url: "".concat(_config.baseUrl, "/user/follows?uid=").concat(userId),
       method: 'GET',
       data: {},
       success: function success(res) {
@@ -9749,6 +9741,54 @@ function getHotComment(songid) {
   return new Promise(function (resolve, reject) {
     uni.request({
       url: "".concat(_config.baseUrl, "/comment/hot?id=").concat(songid, "&type=0"),
+      method: 'GET',
+      data: {},
+      success: function success(res) {
+        resolve(res);
+      }
+    });
+  });
+}
+function getArtistData(artistid) {
+  return new Promise(function (resolve, reject) {
+    uni.request({
+      url: "".concat(_config.baseUrl, "/artists?id=").concat(artistid),
+      method: 'GET',
+      data: {},
+      success: function success(res) {
+        resolve(res);
+      }
+    });
+  });
+}
+function getHotSearch() {
+  return new Promise(function (resolve, reject) {
+    uni.request({
+      url: "".concat(_config.baseUrl, "/search/hot/detail"),
+      method: 'GET',
+      data: {},
+      success: function success(res) {
+        resolve(res);
+      }
+    });
+  });
+}
+function getSearchResult(keywords) {
+  return new Promise(function (resolve, reject) {
+    uni.request({
+      url: "".concat(_config.baseUrl, "/search?keywords=").concat(keywords),
+      method: 'GET',
+      data: {},
+      success: function success(res) {
+        resolve(res);
+      }
+    });
+  });
+}
+function getAlbumData(id) {
+  return new Promise(function (resolve, reject) {
+    uni.request({
+      url: "".concat(_config.baseUrl, "/album?id=").concat(id),
       method: 'GET',
       data: {},
       success: function success(res) {
@@ -9848,7 +9888,16 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKoAAAEECAYAAAC4
 /* 78 */,
 /* 79 */,
 /* 80 */,
-/* 81 */,
+/* 81 */
+/*!*******************************************************************************!*\
+  !*** D:/HBuilderX/HBProject/NeteaseMusic/NeteaseMusic-uni/static/HOTlogo.png ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAYCAIAAAAK+FjQAAAACXBIWXMAABJ0AAASdAHeZh94AAAAEXRFWHRTb2Z0d2FyZQBTbmlwYXN0ZV0Xzt0AAASYSURBVEiJ7ZbLbxt1EMc/9vptp3ZsN83DSZtH3diJmzQt6ZPSUCGEQDwq1BZx48AJJMSRU/8ATpwRgkMlKirRIkRbVS09hABp2rRpA3k4cZzYsWM7jhMndtb27nKIXae1xRUO+V5WO/P7zXx2ZjRalaIo/D+k/q8BytpBqSZN8anIbExza5iF5ZJLBV7e9pKZ5NEYiW2XfCfpe4na0uvyU4afMLkEoFLTeIyXO6nfBYCEtM6dqwTSZKvlN9fTcYSBjm0oWzS5JA+HmAmjt9DcR0cHsoJcIObnj1HCKhydeF14JBSQRTKLDE2w4CexQU6FOstqgIcJCnlOd9NkBQkpwY2f2WhkdyNyhNlRwiqaD9PuJONn04LcwcD2qqjU1Hh4X0MiwcwS1n289TFvuLBooQFBJDlKRIP3TT46jduBJJJa4MFNvrqLuYsL7/L6YYRlZn/iiytclzCbcB5Ck2MjRG4vp88z4CN+h+9GiWg49QHv+IhdZTyIvf75Bm1pLU4mjcqOzceZVowAyBnSG0RBraGnE1sNyGTCPLzJpSvo+vn0Q17uxASYaO9Be42Fe0x00tNDXZawn/c+52A9jjiPogyDRkdXC1YzWg/6FgyuaijBaRJRap14vNhLM51dJDTPlAnhIAec1GghzvAgX15DELh4AW8LhoohSGdJZWix475Ihx6tQCJENABW1GdpNWEGUy92uWJst5SYJb2Ecy/dboSSMRYiFEBrYn8f9Qb0KuYn+HuEtILWg8+F3VCELuRZWUKSABRQFFQCOnMxzuIkwTEsFo73U6NHDejKWbahKBDnryShHOo5fr3MlL7oSQaYCWKycaQXix71JkE/0350Jlr6aLJgKG2EQo7kInIBwKDFpC/nIYk/yvgalt0c92DQVZTx2V5RZFYmCKRZsWOswwmiiCiytoB/njkRcz29e9FrIE04ztwqJjN9vdj05S8TM8w+Jp/D2kpTE85t+cQYkTWiFoz76HKiE6hQqSqyxPQD0klM+zl+js9OFe2Re3zzA2ENtR7aLWggnyK+QQIa9XS70WmLJyWRVIQ/HyCC70xx2spFibKeQt9AXT+uSoxyVRTkPE8GWV3B00xPa9k/P8VyFLsTj5daECCTQswAaDTUWRG2IshkFwmMcBckI0e7aX+WUAGZ4BTxCE0OTnirg5RQNpH83M0Ta8PdhW9P2b8cIB3DWUv3gaLF4sBoqYizif8x139E0HLxEie6nysJa0xOsRjDvgtP87+irK9y/yarWWQnNTZsGgBFYnWU+3GCTmpb6bAWbwgNHHJztIGsyPgcuTzA+C1uf89CDQOfcLaLPabyAMky80OMR4k5MLpwaCsYSoEvnT/P5cv8PkI4jSSRlxAMWNWMfM0vgwwHSOVQROQNGn0YQa3FbMasZn2RJzMExhgZZvApmVpePccrJ2mzod8CyZMKceNbbv/GWJj1AlKWXLoU50UUDZKEosV1tDRNVnIFZJlCDlUdx+qKB1U5nm0jexuH1RiMDIVR8mzmsR/A3cNr/bzQOkUin8PUxsm2UhvEcpznpdr5i6uiHZRq2kGppn8A/Wm5/EmC2FcAAAAASUVORK5CYII="
+
+/***/ }),
 /* 82 */,
 /* 83 */,
 /* 84 */,
@@ -9860,7 +9909,95 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKoAAAEECAYAAAC4
 /* 90 */,
 /* 91 */,
 /* 92 */,
-/* 93 */
+/* 93 */,
+/* 94 */,
+/* 95 */,
+/* 96 */,
+/* 97 */,
+/* 98 */,
+/* 99 */,
+/* 100 */,
+/* 101 */,
+/* 102 */,
+/* 103 */,
+/* 104 */,
+/* 105 */,
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */
+/*!*******************************************************************************************************************************!*\
+  !*** D:/HBuilderX/HBProject/NeteaseMusic/NeteaseMusic-uni/uni_modules/uni-search-bar/components/uni-search-bar/i18n/index.js ***!
+  \*******************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 112));
+var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 113));
+var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 114));
+var _default = {
+  en: _en.default,
+  'zh-Hans': _zhHans.default,
+  'zh-Hant': _zhHant.default
+};
+exports.default = _default;
+
+/***/ }),
+/* 112 */
+/*!******************************************************************************************************************************!*\
+  !*** D:/HBuilderX/HBProject/NeteaseMusic/NeteaseMusic-uni/uni_modules/uni-search-bar/components/uni-search-bar/i18n/en.json ***!
+  \******************************************************************************************************************************/
+/*! exports provided: uni-search-bar.cancel, uni-search-bar.placeholder, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"uni-search-bar.cancel\":\"cancel\",\"uni-search-bar.placeholder\":\"Search enter content\"}");
+
+/***/ }),
+/* 113 */
+/*!***********************************************************************************************************************************!*\
+  !*** D:/HBuilderX/HBProject/NeteaseMusic/NeteaseMusic-uni/uni_modules/uni-search-bar/components/uni-search-bar/i18n/zh-Hans.json ***!
+  \***********************************************************************************************************************************/
+/*! exports provided: uni-search-bar.cancel, uni-search-bar.placeholder, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"uni-search-bar.cancel\":\"cancel\",\"uni-search-bar.placeholder\":\"请输入搜索内容\"}");
+
+/***/ }),
+/* 114 */
+/*!***********************************************************************************************************************************!*\
+  !*** D:/HBuilderX/HBProject/NeteaseMusic/NeteaseMusic-uni/uni_modules/uni-search-bar/components/uni-search-bar/i18n/zh-Hant.json ***!
+  \***********************************************************************************************************************************/
+/*! exports provided: uni-search-bar.cancel, uni-search-bar.placeholder, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"uni-search-bar.cancel\":\"cancel\",\"uni-search-bar.placeholder\":\"請輸入搜索內容\"}");
+
+/***/ }),
+/* 115 */,
+/* 116 */,
+/* 117 */,
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */,
+/* 122 */,
+/* 123 */,
+/* 124 */,
+/* 125 */,
+/* 126 */,
+/* 127 */,
+/* 128 */,
+/* 129 */
 /*!****************************************************************************************************************!*\
   !*** D:/HBuilderX/HBProject/NeteaseMusic/NeteaseMusic-uni/uni_modules/uni-icons/components/uni-icons/icons.js ***!
   \****************************************************************************************************************/

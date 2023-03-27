@@ -3,7 +3,7 @@
 		<van-tabbar v-model="active">
 			<van-tabbar-item icon="home-o" @tap="toIndex()">首页</van-tabbar-item>
 			<van-tabbar-item icon="search" dot @tap="toSearch()">搜索</van-tabbar-item>
-			<van-tabbar-item icon="service-o" @tap="toList()" dot >精品歌单</van-tabbar-item>
+			<van-tabbar-item icon="service-o" @tap="toList()">精品歌单</van-tabbar-item>
 			<van-tabbar-item icon="friends-o"> 个人中心</van-tabbar-item>
 		</van-tabbar>
 	</view>

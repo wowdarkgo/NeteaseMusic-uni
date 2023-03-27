@@ -65,6 +65,8 @@
 						</view>
 					</van-col>
 				</van-row>
+				<view class="more">
+				</view>
 			</view>
 		</scroll-view>
 		<commonTabbar class="Tabbar"></commonTabbar>
@@ -117,7 +119,7 @@
 					url: `/pages/list/list?listid=${e.target.id}`
 				})
 			},
-		
+
 		},
 		components: {
 			commonTitle
@@ -184,11 +186,12 @@
 	}
 
 	.Tabbar {
-		position: absolute;
-		right: 0;
-		left: 0;
-		height: 20px;
-		margin-top: 80rpx;
-		position: sticky;
+		bottom: 0;
+		width: 100%;
+		position: fixed;
+	}
+	
+	.more {
+		margin-top: 60px;
 	}
 </style>

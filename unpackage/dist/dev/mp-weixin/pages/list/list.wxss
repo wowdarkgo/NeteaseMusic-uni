@@ -1,11 +1,8 @@
 
 .Tabbar {
-	position: absolute;
-	right: 0;
+	position: fixed;
+	width: 100%;
 	bottom: 0;
-	left: 0;
-	position: -webkit-sticky;
-	position: sticky;
 }
 .listContainer {
 	font-size: 10px;
@@ -55,7 +52,7 @@
 	box-shadow: 0 7px 5px -5px rgba(240, 240, 240, .7);
 	text-overflow: ellipsis;
 	overflow: hidden !important;
-	width: 800rpx;
+	width: 90%;
 	white-space: nowrap;
 }
 .songIndex {
@@ -71,5 +68,8 @@
 }
 .author {
 	font-size: 12px;
+}
+.more {
+	margin-top: 60px;
 }
 

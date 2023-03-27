@@ -1,10 +1,20 @@
 
-.Tabbar {
+.back {
+	width: 200px;
 	position: absolute;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	position: fixed;
+	left: 20px;
+	top: 20px;
+	background-color: #cccccc;
+	
+	z-index: 1;
+}
+.back-arrow {
+	color: white;
+	font-size: 16px;
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	border-radius: 40%;
 }
 .bg {
 	position: fixed;
@@ -74,6 +84,22 @@ to {
 		        transform: translate(-50%, -50%) rotate(359deg);
 }
 }
+@-webkit-keyframes opacity {
+form {
+		opacity: 1;
+}
+to {
+		opacity: 0;
+}
+}
+@keyframes opacity {
+form {
+		opacity: 1;
+}
+to {
+		opacity: 0;
+}
+}
 .disc {
 	position: relative;
 	width: 300px;
@@ -97,8 +123,15 @@ to {
 	top: 50%;
 	-webkit-transform: translate(-50%, -50%);
 	        transform: translate(-50%, -50%);
+	opacity: 1;
+	-webkit-animation-play-state: var(--opacity) !important;
+	        animation-play-state: var(--opacity) !important;
+	-webkit-animation: opacity 3s;
+	        animation: opacity 3s;
+	-webkit-animation-fill-mode: forwards;
+	        animation-fill-mode: forwards;
 }
-.lyric {
+.song-info {
 	font-size: 12px;
 	position: absolute;
 	left: 50%;
@@ -106,23 +139,23 @@ to {
 	-webkit-transform: translate(-50%, -50%);
 	        transform: translate(-50%, -50%);
 	text-align: center;
+	width: 100%;
 }
-.lyric-item {
-	margin: 15px 0 15px 0;
-	color: #646468
+.songname {
+	font-size: 2em;
+	color: white;
+	margin-top: 6em;
 }
-.lyric-item-active {
-	font-size: 15px;
-	color: #ffffff;
+.authorname {
+	font-size: 1.10em;
+	color: #dcdddf;
+	margin-top: .5em;
 }
-.recommend,
+.recommend {
+	margin: 100px 0 0 10px
+}
 .comment {
-	margin-left: 10px;
-	margin-top: 10px;
-	/* margin-bottom: 20%; */
-}
-.comment {
-	margin-bottom: 20%;
+	margin: 20px 0 20% 10px
 }
 .recommend-item,
 .comment-item {
@@ -137,10 +170,13 @@ to {
 }
 .item-content,
 .comment-content {
-	font-size: 15px;
+	font-size: 14px;
 	color: #ffffff;
 	float: left;
 	margin-left: 10px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	width: 90%;
 }
 .comment-time {
 	display: flex;
@@ -150,7 +186,7 @@ to {
 .user-content {
 	width: 70px;
 	text-align: start;
-	line-height: 15px;
+	white-space: nowrap;
 }
 .comment-like {
 	position: absolute;
@@ -162,9 +198,23 @@ to {
 	font-size: 13px;
 	color: #dcdddf;
 	margin-top: 10px;
+	width: 50px;
+}
+.item-author {
+	width: 100%;
 }
 .comment-content {
-	width: 60%;
-	margin-top: 10px;
+	width: 90%;
+	margin-top: 50px;
+}
+.more {
+	font-size: 12px;
+	color: #dcdddf;
+	text-decoration: underline;
+	margin-top: 20px;
+	left: 50%;
+	position: absolute;
+	-webkit-transform: translate(-50%, -50%);
+	        transform: translate(-50%, -50%);
 }
 

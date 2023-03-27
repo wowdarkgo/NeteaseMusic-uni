@@ -202,7 +202,7 @@
 
 	.uni-nvue-fixed {
 		/* #ifdef APP-NVUE */
-		position: sticky;
+		position: fixed;
 		/* #endif */
 	}
 	.uni-navbar {

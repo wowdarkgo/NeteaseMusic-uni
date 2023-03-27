@@ -29,7 +29,7 @@
 						<view v-for="(item,index) in list" :key="item.id" class="musicList" @click="ToDetail($event)"
 							:id="item.id">
 							<van-icon name="play-circle-o"
-								style="font-size: 30px; position: absolute; right: 10px;color: gray;" />
+								style="font-size: 25px; position: absolute; right: 10px;color: gray;" />
 							<view class="songIndex">
 								{{index+1}}
 							</view>
@@ -38,7 +38,6 @@
 							<img v-if="item.privilege.maxbr>=999000" src="../../static/SQlogo.png" alt="" class="Logo">
 						</view>
 					</view>
-
 				</view>
 			</view>
 		</scroll-view>
@@ -89,7 +88,6 @@
 				this.artistsData.briefDesc = res.data.artist.briefDesc;
 				this.list = [...res.data.hotSongs];
 				this.firstSongId=res.data.hotSongs[0].id
-					console.log(this.list)
 				setInterval(function() {
 					uni.hideLoading()
 				}, 1000)
@@ -104,6 +102,7 @@
 
 <style>
 	.Tabbar {
+		width: 100%;
 		position: absolute;
 		right: 0;
 		bottom: 0;
@@ -169,7 +168,7 @@
 		box-shadow: 0 7px 5px -5px rgba(240, 240, 240, .7);
 		text-overflow: ellipsis;
 		overflow: hidden !important;
-		width: 800rpx;
+		width: 100%;
 		white-space: nowrap;
 	}
 

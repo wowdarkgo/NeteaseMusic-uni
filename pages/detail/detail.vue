@@ -14,10 +14,10 @@
 						<img src="../../static/disc.png" alt="" class="disc">
 						<img src="../../static/needle.png" alt="" class="needle">
 						<view v-show='!isplay'>
-							<van-icon name="play-circle-o" class="icon-play" />
+							<van-icon name="pause-circle-o" class="icon-play" :style="{'--opacity':isplay}" />
 						</view>
 						<view v-show="isplay">
-							<van-icon name="pause-circle-o" class="icon-play" />
+							<van-icon name="play-circle-o" class="icon-play" :style="{'--opacity':isplay}" />
 						</view>
 
 					</view>
@@ -25,12 +25,11 @@
 						<view class="songname">
 							{{songname}}
 						</view>
-						<view class="authorname" @tap="ToArtist($event)" :id="this.artistid"
-							style="text-decoration: underline;">
-							歌手：{{authorname}}
+						<view class="authorname" @tap="ToArtist($event)" :id="this.artistid">
+							{{authorname}}
 						</view>
-						<view class="authorname">
-							专辑：{{albumname}}
+						<view class="authorname" @tap="ToAlbum($event)" :id="this.albumid">
+							- {{albumname}} -
 						</view>
 					</view>
 				</scroll-view>
@@ -40,7 +39,8 @@
 					</view>
 					<view v-for="item in simisong" :key="item.id" class="recommend-item" :id="item.id"
 						@click="ToDetail($event)">
-						<img :src='item.album.blurPicUrl' alt="" style="width: 50px;border-radius: 10%;float: left;">
+						<img :src='item.album.blurPicUrl' alt=""
+							style="width: 50px;height:50px;border-radius: 10%;float: left;">
 						<view class="item-content">
 							{{ item.name }}
 							<van-icon name="play-circle-o" style="font-size: 30px; position: absolute; right: 10px;" />
@@ -100,6 +100,7 @@
 				songname: '',
 				authorname: '',
 				albumname: '',
+				albumid: '',
 				artistid: '',
 				songurl: '',
 				coverurl: '',
@@ -117,17 +118,16 @@
 						title: "加载歌曲中……",
 					}),
 					this.innerAudioContext.stop();
-				this.isturn = 'paused';
 				getSongData(e.currentTarget.id).then((res) => {
 						this.songname = res.data.songs[0].name,
 							this.authorname = res.data.songs[0].ar[0].name,
 							this.albumname = res.data.songs[0].al.name,
+							this.albumid = res.data.songs[0].al.id,
 							this.artistid = res.data.songs[0].ar[0].id,
 							this.coverurl = res.data.songs[0].al.picUrl
 					}).then(
 						getSongUrl(e.currentTarget.id).then((res) => {
 							this.songurl = res.data.data[0].url;
-							console.log(this.songurl)
 							setInterval(function() {
 								uni.hideLoading()
 							}, 1000)
@@ -143,7 +143,8 @@
 							title: '请重新进入列表或更换歌曲',
 							icon: 'error'
 						})
-					})
+					}),
+					this.isturn = 'paused';
 			},
 			back() {
 				uni.navigateBack()
@@ -152,7 +153,17 @@
 				uni.navigateTo({
 					url: `/pages/artists/artists?id=${e.target.id}`
 				})
-				this.innerAudioContext.stop()
+				this.innerAudioContext.stop();
+				this.isplay = false
+				this.isturn = 'paused';
+			},
+			ToAlbum(e) {
+				uni.navigateTo({
+					url: `/pages/album/album?id=${e.target.id}`
+				})
+				this.innerAudioContext.stop();
+				this.isplay = false;
+				this.isturn = 'paused';
 			},
 			controlplay() {
 				if (!this.isinit) {
@@ -190,6 +201,7 @@
 					this.songname = res.data.songs[0].name,
 						this.authorname = res.data.songs[0].ar[0].name,
 						this.albumname = res.data.songs[0].al.name,
+						this.albumid = res.data.songs[0].al.id,
 						this.artistid = res.data.songs[0].ar[0].id,
 						this.coverurl = res.data.songs[0].al.picUrl,
 						this.privileges = res.data.privileges[0]
@@ -308,13 +320,25 @@
 	@keyframes turn {
 		from {
 			transform: translate(-50%, -50%) rotate(0deg);
+
 		}
 
 		to {
 			transform: translate(-50%, -50%) rotate(359deg);
+
 		}
 	}
 
+	@keyframes opacity {
+		form {
+			opacity: 1;
+		}
+
+		to {
+			opacity: 0;
+			;
+		}
+	}
 
 	.disc {
 		position: relative;
@@ -339,6 +363,10 @@
 		position: absolute;
 		top: 50%;
 		transform: translate(-50%, -50%);
+		opacity: 1;
+		animation-play-state: var(--opacity) !important;
+		animation: opacity 3s;
+		animation-fill-mode: forwards;
 	}
 
 	.song-info {

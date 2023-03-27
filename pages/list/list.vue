@@ -1,11 +1,11 @@
 <template>
 	<view>
-		<commonTitle :title='"歌单列表  -  "+this.listName'></commonTitle>
+		<commonTitle :title='"歌单列表  -  "+this.listName' class="commontitle"></commonTitle>
 		<scroll-view scroll-y="true">
 			<view>
 				<view class="listContainer">
 					<view class="cover">
-						<img :src="coverUrl" class="coverImg">
+						<img :src="this.coverUrl" class="coverImg">
 						<view class="listText">
 							<p class="listName">
 								{{listName}}
@@ -21,15 +21,14 @@
 				</view>
 
 				<view class="List">
-					<view class="listHead" @tap="ToDetail($event)"
-							:id="firstSongId">
+					<view class="listHead" @tap="ToDetail($event)" :id="firstSongId">
 						<van-icon name="play-circle-o" style="vertical-align: middle;margin-right: 5px;" />
-						<text style="font-size: 14px; vertical-align:middle" >开始播放</text>
+						<text style="font-size: 14px; vertical-align:middle">开始播放</text>
 					</view>
 					<view>
 						<view v-for="(item,index) in list" :key="item.id" class="musicList" @click="ToDetail($event)"
 							:id="item.id">
-							<van-icon name="play-circle-o" style="font-size: 30px; position: absolute; right: 10px;" />
+							<van-icon name="play-circle-o" style="font-size: 25px; position: absolute; right: 10px;" />
 							<view class="songIndex">
 								{{index+1}}
 							</view>
@@ -43,13 +42,12 @@
 							</view>
 						</view>
 					</view>
-
+					<view class="more">
+					</view>
 				</view>
 
 			</view>
 		</scroll-view>
-		<!-- 下面为歌单列表模块 -->
-
 
 		<commonTabbar class="Tabbar"></commonTabbar>
 	</view>
@@ -71,7 +69,7 @@
 				listDescription: '',
 				UpdateTime: '',
 				list: [],
-				firstSongId:'',
+				firstSongId: '',
 				privileges: []
 			}
 		},
@@ -89,14 +87,14 @@
 				title: "拉取歌单中……",
 			})
 			getSongList(this.listid).then((res) => {
-				this.coverUrl = res.data.playlist.coverImgUrl;
 				this.listName = res.data.playlist.name;
+								this.coverUrl = res.data.playlist.coverImgUrl;
 				this.listAuthor = res.data.playlist.creator.nickname;
 				this.authorUrl = res.data.playlist.creator.avatarUrl;
 				this.listDescription = res.data.playlist.description;
 				this.UpdateTime = timestampToTime(res.data.playlist.trackUpdateTime);
 				this.list = [...res.data.playlist.tracks].slice(0, 99);
-				this.firstSongId=res.data.playlist.tracks[0].id;
+				this.firstSongId = res.data.playlist.tracks[0].id;
 				this.privileges = [...res.data.privileges];
 				setInterval(function() {
 					uni.hideLoading()
@@ -115,12 +113,9 @@
 
 <style>
 	.Tabbar {
-		position: absolute;
-		right: 0;
+		position: fixed;
+		width: 100%;
 		bottom: 0;
-		left: 0;
-		position: sticky;
-
 	}
 
 	.listContainer {
@@ -178,7 +173,7 @@
 		box-shadow: 0 7px 5px -5px rgba(240, 240, 240, .7);
 		text-overflow: ellipsis;
 		overflow: hidden !important;
-		width: 800rpx;
+		width: 90%;
 		white-space: nowrap;
 	}
 
@@ -197,5 +192,10 @@
 
 	.author {
 		font-size: 12px;
+	}
+	
+	.more {
+		margin-top: 60px;
+	
 	}
 </style>

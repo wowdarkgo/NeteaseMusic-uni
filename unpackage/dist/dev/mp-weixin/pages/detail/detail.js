@@ -100,11 +100,8 @@ __webpack_require__.r(__webpack_exports__);
 var components
 try {
   components = {
-    commonTitle: function () {
-      return __webpack_require__.e(/*! import() | components/commonTitle/commonTitle */ "components/commonTitle/commonTitle").then(__webpack_require__.bind(null, /*! @/components/commonTitle/commonTitle.vue */ 69))
-    },
     commonTabbar: function () {
-      return __webpack_require__.e(/*! import() | components/commonTabbar/commonTabbar */ "components/commonTabbar/commonTabbar").then(__webpack_require__.bind(null, /*! @/components/commonTabbar/commonTabbar.vue */ 76))
+      return __webpack_require__.e(/*! import() | components/commonTabbar/commonTabbar */ "components/commonTabbar/commonTabbar").then(__webpack_require__.bind(null, /*! @/components/commonTabbar/commonTabbar.vue */ 101))
     },
   }
 } catch (e) {
@@ -262,19 +259,29 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 45);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
       songid: '',
       songname: '',
+      authorname: '',
+      albumname: '',
+      albumid: '',
+      artistid: '',
       songurl: '',
       coverurl: '',
       simisong: [],
       hotcomment: [],
+      privileges: [],
       isplay: false,
       isinit: false,
-      isturn: 'paused',
-      turninit: false
+      isturn: 'paused'
     };
   },
   methods: {
@@ -283,14 +290,10 @@ var _default = {
       uni.showLoading({
         title: "加载歌曲中……"
       }), this.innerAudioContext.stop();
-      this.isturn = 'paused';
       (0, _api.getSongData)(e.currentTarget.id).then(function (res) {
-        _this.songname = res.data.songs[0].name, _this.coverurl = res.data.songs[0].al.picUrl;
-        // console.log(this.coverurl)
+        _this.songname = res.data.songs[0].name, _this.authorname = res.data.songs[0].ar[0].name, _this.albumname = res.data.songs[0].al.name, _this.albumid = res.data.songs[0].al.id, _this.artistid = res.data.songs[0].ar[0].id, _this.coverurl = res.data.songs[0].al.picUrl;
       }).then((0, _api.getSongUrl)(e.currentTarget.id).then(function (res) {
         _this.songurl = res.data.data[0].url;
-        console.log(_this.songurl);
-        // console.log(res.data.data[0].url)
         setInterval(function () {
           uni.hideLoading();
         }, 1000);
@@ -304,14 +307,41 @@ var _default = {
           title: '请重新进入列表或更换歌曲',
           icon: 'error'
         });
+      }), this.isturn = 'paused';
+    },
+    back: function back() {
+      uni.navigateBack();
+    },
+    ToArtist: function ToArtist(e) {
+      uni.navigateTo({
+        url: "/pages/artists/artists?id=".concat(e.target.id)
       });
+      this.innerAudioContext.stop();
+      this.isplay = false;
+      this.isturn = 'paused';
+    },
+    ToAlbum: function ToAlbum(e) {
+      uni.navigateTo({
+        url: "/pages/album/album?id=".concat(e.target.id)
+      });
+      this.innerAudioContext.stop();
+      this.isplay = false;
+      this.isturn = 'paused';
     },
     controlplay: function controlplay() {
       if (!this.isinit) {
+        this.innerAudioContext.destroy();
         this.innerAudioContext.loop = true;
         this.innerAudioContext.src = this.songurl;
-        this.turninit = true;
+        this.isinit = true;
         console.log('音乐初始化成功');
+        if (this.privileges.fee === 1) {
+          uni.showToast({
+            title: '会员专享歌曲，仅可试听30秒',
+            icon: 'none',
+            duration: 2000
+          });
+        }
       }
       this.isplay = !this.isplay;
       if (this.isplay) {
@@ -331,7 +361,7 @@ var _default = {
       title: "加载歌曲中……"
     });
     (0, _api.getSongData)(this.songid).then(function (res) {
-      _this2.songname = res.data.songs[0].name, _this2.coverurl = res.data.songs[0].al.picUrl;
+      _this2.songname = res.data.songs[0].name, _this2.authorname = res.data.songs[0].ar[0].name, _this2.albumname = res.data.songs[0].al.name, _this2.albumid = res.data.songs[0].al.id, _this2.artistid = res.data.songs[0].ar[0].id, _this2.coverurl = res.data.songs[0].al.picUrl, _this2.privileges = res.data.privileges[0];
     }).then((0, _api.getSongUrl)(this.songid).then(function (res) {
       _this2.songurl = res.data.data[0].url;
       console.log(_this2.songurl);
@@ -341,13 +371,23 @@ var _default = {
       }, 1000);
     })).then((0, _api.getSimiSong)(this.songid).then(function (res) {
       _this2.simisong = (0, _toConsumableArray2.default)(res.data.songs).slice(0, 5);
-      // console.log(this.simisong)
     })).then((0, _api.getHotComment)(this.songid).then(function (res) {
       _this2.hotcomment = (0, _toConsumableArray2.default)(res.data.hotComments);
     })).catch(function (err) {
-      uni.showToast({
-        title: '请重新进入列表或更换歌曲',
-        icon: 'error'
+      uni.showModal({
+        title: '加载失败',
+        content: '请重新进入歌曲播放页',
+        cancelText: '返回主页',
+        confirmText: '返回列表',
+        success: function success(res) {
+          if (res.confirm) {
+            uni.navigateBack();
+          } else if (res.cancel) {
+            uni.navigateTo({
+              url: '/pages/index/index'
+            });
+          }
+        }
       });
     });
     //歌曲播放

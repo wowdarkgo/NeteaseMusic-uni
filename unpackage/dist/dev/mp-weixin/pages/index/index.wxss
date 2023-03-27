@@ -1,4 +1,7 @@
 
+.search-bar {
+	margin-top: 10px;
+}
 .content {
 	display: flex;
 	flex-direction: column;
@@ -46,12 +49,11 @@
 	white-space: nowrap;
 }
 .Tabbar {
-	position: absolute;
-	right: 0;
-	left: 0;
-	height: 20px;
-	margin-top: 80rpx;
-	position: -webkit-sticky;
-	position: sticky;
+	bottom: 0;
+	width: 100%;
+	position: fixed;
+}
+.more {
+	margin-top: 60px;
 }
 

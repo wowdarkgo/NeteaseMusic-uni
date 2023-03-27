@@ -1,6 +1,6 @@
 # NeteaseMusic-uni
 
-使用uni-app+vant+vue2+nodejs完成的仿网易云小程序
+使用uni-app+vant+vue2+nodejs完成的仿网易云H5页面（小程序端问题较多，暂且搁置）
 
 [需要使用nodejs开放本地端口](https://github.com/Binaryify/NeteaseCloudMusicApi)
 
